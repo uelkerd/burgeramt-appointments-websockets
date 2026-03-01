@@ -5,8 +5,10 @@ import asyncio
 import chime
 import json
 import logging
+import os  # Moved from inside
 import pytz
 import websockets
+import argparse  # Moved from inside
 
 
 logger = logging.getLogger()
@@ -28,6 +30,61 @@ class HTTPError(Exception):
 
 def datetime_to_json(datetime_obj: datetime) -> str:
     return datetime_obj.strftime('%Y-%m-%dT%H:%M:%SZ')
+
+
+def ask_question(question: str, instructions: str) -> str:
+    print(f"\033[1m{question}\033[0m")
+    if instructions:
+        print(instructions)
+    return input("> \033[0m")
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        prog='appointments',
+        description='Finds Bürgeramt and other office appointments in Berlin. '
+                    'Also broadcasts them via websockets.',
+        epilog='Made with ❤️ in Berlin'
+    )
+    parser.add_argument(
+        '-i', '--id',
+        help="A unique ID for your script. Used by the Berlin.de team to identify requests from you.",
+        default=os.environ.get('BOOKING_TOOL_ID', '')
+    )
+    parser.add_argument(
+        '-e', '--email',
+        help="Your email address. Required by the Berlin.de team.",
+        default=os.environ.get('BOOKING_TOOL_EMAIL', None)
+    )
+    parser.add_argument(
+        '-u', '--url',
+        help="URL to the service page on Berlin.de. For example, \"https://service.berlin.de/dienstleistung/120686/\"",
+        default=os.environ.get('BOOKING_TOOL_URL', None)
+    )
+    parser.add_argument(
+        '-q', '--quiet', action='store_true',
+        help="Limit output to essential logging.",
+        default=False
+    )
+    parser.add_argument(
+        '-p', '--port', type=int,
+        help="Expose a websockets server on that port. Allows other software to listen for new appointments.",
+        default=os.environ.get('BOOKING_TOOL_PORT', 80)
+    )
+    args = parser.parse_args()
+
+    service_page_url = args.url or ask_question(
+        "What is URL of the service you want to watch?",
+        ("This is service.berlin.de page for the service you want an appointment for. "
+         "For example, \"https://service.berlin.de/dienstleistung/120686/\"")
+    )
+
+    email = args.email or ask_question(
+        "What is your email address?",
+        "It will be included in the requests this script makes. It's required by the Berlin.de appointments team."
+    )
+
+    asyncio.run(watch_for_appointments(service_page_url, email, args.id, args.port, args.quiet))
 
 
 connected_clients = []
@@ -187,3 +244,7 @@ async def watch_for_appointments(service_page_url: str, email: str, script_id: s
             await asyncio.sleep(refresh_delay)
 
         await browser.close()
+
+
+if __name__ == '__main__':
+    main()
