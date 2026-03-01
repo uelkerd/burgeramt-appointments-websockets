@@ -1,17 +1,16 @@
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "berlin-appointment-finder"
 version = "2.0.0"
 description = "Finds appointments at the Berlin Bürgeramt, broadcasts them via websockets"
 readme = "README.md"
-authors = [
-  { name = "Nicolas Bouliane", email = "contact@nicolasbouliane.com" }
-]
-license = { text = "MIT" }
 requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Nicolas Bouliane", email = "contact@nicolasbouliane.com" }]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
 dependencies = [
     "chime==0.7.0",
     "playwright==1.55.0",
@@ -25,6 +24,8 @@ Funding = "https://allaboutberlin.com/donate"
 "Source Code" = "https://github.com/All-About-Berlin/burgeramt-appointments"
 Issues = "https://github.com/All-About-Berlin/burgeramt-appointments/issues"
 
-[tool.setuptools]
-packages = ["appointments"]
-script-files = ["bin/appointments"]
+[project.scripts]
+appointments = "appointments.__main__:main" # Assuming this is the correct entry point, will confirm if needed
+
+[tool.setuptools.packages]
+find = {} # Automatic package discovery
