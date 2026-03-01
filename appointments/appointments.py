@@ -29,6 +29,12 @@ class HTTPError(Exception):
 def datetime_to_json(datetime_obj: datetime) -> str:
     return datetime_obj.strftime('%Y-%m-%dT%H:%M:%SZ')
 
+def ask_question(question: str, instructions: str) -> str:
+    print(f"\033[1m{question}\033[0m")
+    if instructions:
+        print(instructions)
+    return input("> \033[0m")
+
 import argparse
 import os
 
