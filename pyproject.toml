@@ -30,7 +30,7 @@ Funding = "https://allaboutberlin.com/donate"
 "Source Code" = "https://github.com/All-About-Berlin/burgeramt-appointments"
 
 [project.scripts]
-appointments = "appointments.__main__:main" # Assuming this is the correct entry point, will confirm if needed
+appointments = "appointments.appointments:main"
 
 [tool.setuptools.packages]
 find = {} # Automatic package discovery
