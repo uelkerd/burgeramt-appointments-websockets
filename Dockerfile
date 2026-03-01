@@ -1,6 +1,8 @@
-FROM python:3.10-slim
+# Use a specific slim Debian base image for better reproducibility
+FROM python:3.10.13-slim-bookworm
 
-# Set a shared location for Playwright browsers so they can be found by any user
+# Explicitly define where Playwright should store its binaries
+# This ensures it can be accessed by any user in the container
 ENV PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers
 
 WORKDIR /var/appointments
