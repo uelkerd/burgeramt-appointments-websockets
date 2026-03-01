@@ -24,10 +24,10 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://allaboutberlin.com/tools/appointment-finder" # Added missing URL
+Issues = "https://github.com/All-About-Berlin/burgeramt-appointments/issues"
 Documentation = "https://github.com/All-About-Berlin/burgeramt-appointments"
 Funding = "https://allaboutberlin.com/donate"
 "Source Code" = "https://github.com/All-About-Berlin/burgeramt-appointments"
-Issues = "https://github.com/All-About-Berlin/burgeramt-appointments/issues"
 
 [project.scripts]
 appointments = "appointments.__main__:main" # Assuming this is the correct entry point, will confirm if needed
