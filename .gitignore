@@ -1,4 +1,4 @@
 __pycache__
 dist
 build
-*.egg-info
+*.egg-info\n# AI/Local config files\n.claude/\n.docs/\nCLAUDE.md
