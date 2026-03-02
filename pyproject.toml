@@ -15,12 +15,15 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+keywords = ["berlin", "appointments", "automation", "playwright"]
+dynamic = ["version"]
+
 dependencies = [
-    # Using specific versions for stability and PyPI availability
-    "playwright==1.44.0",
-    "websockets==12.0",
+    # Pinning to specific verified versions for stability and PyPI availability
     "chime==0.7.0",
+    "playwright==1.44.0",
     "pytz==2024.1",
+    "websockets==12.0",
 ]
 
 [project.urls]
