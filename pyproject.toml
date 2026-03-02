@@ -18,16 +18,8 @@ classifiers = [
 keywords = ["berlin", "appointments", "automation", "playwright"]
 dynamic = ["version"]
 
-dependencies = [
-    # Pinning to specific verified versions for stability and PyPI availability
-    "chime==0.7.0",
-    "playwright==1.44.0",
-    "pytz==2024.1",
-    "websockets==12.0",
-]
-
 [project.urls]
-Homepage = "https://allaboutberlin.com/tools/appointment-finder" # Added missing URL
+Homepage = "https://allaboutberlin.com/tools/appointment-finder"
 Issues = "https://github.com/All-About-Berlin/burgeramt-appointments/issues"
 Documentation = "https://github.com/All-About-Berlin/burgeramt-appointments"
 Funding = "https://allaboutberlin.com/donate"
@@ -35,6 +27,14 @@ Funding = "https://allaboutberlin.com/donate"
 
 [project.scripts]
 appointments = "appointments.appointments:main"
+
+# Core dependencies pinned to verified versions for stability and PyPI availability
+dependencies = [
+    "chime==0.7.0",
+    "playwright==1.44.0",
+    "pytz==2024.1",
+    "websockets==12.0",
+]
 
 [tool.setuptools.packages.find]
 # Automatic package discovery
