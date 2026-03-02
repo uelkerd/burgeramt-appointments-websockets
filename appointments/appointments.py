@@ -39,11 +39,8 @@ def ask_question(question: str, instructions: str) -> str:
     return input("> \033[0m")
 
 
-def main():
-    """
-    Main CLI entry point for the appointment finder.
-    Configures logging and parses command line arguments.
-    """
+def main(argv: list[str] | None = None) -> None:
+    # Explicitly configure logging as requested in code review
     logging.basicConfig(
         datefmt='%Y-%m-%d %H:%M:%S',
         format='[%(asctime)s] %(levelname)s: %(message)s',
@@ -90,7 +87,7 @@ def main():
         help="Expose a websockets server on that port. Allows other software to listen for new appointments.",
         default=default_port
     )
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     if args.quiet:
         logging.getLogger().setLevel(logging.WARNING)

@@ -16,10 +16,11 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "playwright==1.44.0", # Corrected version
-    "websockets==12.0",   # Corrected version
+    # Using specific versions for stability and PyPI availability
+    "playwright==1.44.0",
+    "websockets==12.0",
     "chime==0.7.0",
-    "pytz==2024.1",       # Pinned version
+    "pytz==2024.1",
 ]
 
 [project.urls]
