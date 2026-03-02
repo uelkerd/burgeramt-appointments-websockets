@@ -40,6 +40,10 @@ def ask_question(question: str, instructions: str) -> str:
 
 
 def main():
+    """
+    Main CLI entry point for the appointment finder.
+    Configures logging and parses command line arguments.
+    """
     logging.basicConfig(
         datefmt='%Y-%m-%d %H:%M:%S',
         format='[%(asctime)s] %(levelname)s: %(message)s',
@@ -55,8 +59,10 @@ def main():
 
     parser = argparse.ArgumentParser(
         prog='appointments',
-        description='Finds Bürgeramt and other office appointments in Berlin. '
-                    'Also broadcasts them via websockets.',
+        description=(
+            'Finds Bürgeramt and other office appointments in Berlin. '
+            'Also broadcasts results via websockets.'
+        ),
         epilog='Made with ❤️ in Berlin'
     )
     parser.add_argument(
