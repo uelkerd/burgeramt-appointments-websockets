@@ -1,6 +1,5 @@
 import unittest
 from unittest.mock import patch, AsyncMock
-import sys
 
 # Assume the main function is now in appointments.appointments
 from appointments.appointments import main
@@ -10,7 +9,10 @@ class TestCLI(unittest.TestCase):
 
     @patch('appointments.appointments.watch_for_appointments', new_callable=AsyncMock)
     @patch('appointments.appointments.asyncio.run')
-    @patch('sys.argv', ['appointments', '--id', 'test-id', '--email', 'test@example.com', '--url', 'https://service.berlin.de/test/', '--quiet', '--port', '8080'])
+    @patch('sys.argv', [
+        'appointments', '--id', 'test-id', '--email', 'test@example.com',
+        '--url', 'https://service.berlin.de/test/', '--quiet', '--port', '8080'
+    ])
     @patch('appointments.appointments.ask_question')
     def test_main_with_all_args(
         self, mock_ask_question, mock_asyncio_run, mock_watch_for_appointments
@@ -22,6 +24,7 @@ class TestCLI(unittest.TestCase):
         mock_watch_for_appointments.assert_called_once_with(
             "https://service.berlin.de/test/", "test@example.com", "test-id", 8080, True
         )
+        # asyncio.run is called with the awaitable returned by mock_watch_for_appointments
         mock_asyncio_run.assert_called_once()
 
     @patch('appointments.appointments.watch_for_appointments', new_callable=AsyncMock)
@@ -73,7 +76,10 @@ class TestCLI(unittest.TestCase):
 
     @patch('appointments.appointments.watch_for_appointments', new_callable=AsyncMock)
     @patch('appointments.appointments.asyncio.run')
-    @patch('sys.argv', ['appointments', '--id', 'cli-id', '--email', 'cli@example.com', '--url', 'https://service.berlin.de/cli/', '--quiet', '--port', '8081'])
+    @patch('sys.argv', [
+        'appointments', '--id', 'cli-id', '--email', 'cli@example.com',
+        '--url', 'https://service.berlin.de/cli/', '--quiet', '--port', '8081'
+    ])
     @patch('appointments.appointments.ask_question')
     @patch('appointments.appointments.os.environ.get')
     def test_main_argument_precedence(
