@@ -8,10 +8,11 @@ ENV PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers
 WORKDIR /app
 
 # Copy only dependency metadata first to leverage Docker layer caching.
-# We use wildcards so it works whether setup.py or pyproject.toml exists.
-COPY setup.p[y] pyproject.tom[l] README.md ./
-# Also copy the appointments module structure since setup.py's find_packages() needs it
+# Use a wildcard for setup.py and include the README used by the package metadata.
+COPY setup.p[y] README.md ./
+# Also copy the appointments module and bin structure since setup.py needs them for installation
 COPY appointments/ ./appointments/
+COPY bin/ ./bin/
 
 # Combine RUN commands to reduce layers. Install dependencies and browser as root.
 RUN pip install --no-cache-dir . && \
